@@ -1,5 +1,7 @@
 # ec2m
 
+[Русская версия README](./README.ru.md)
+
 `ec2m` is a terminal utility for viewing local Linux metrics and native AWS EC2 / CloudWatch metrics directly from the terminal.
 
 It is designed for on-demand use:
