@@ -13,7 +13,7 @@ INSTALLER_PATH = REPO_ROOT / "install-ec2m.sh"
 
 def build_payload(source_path: pathlib.Path) -> str:
     source_bytes = source_path.read_bytes()
-    encoded = base64.b64encode(gzip.compress(source_bytes)).decode("ascii")
+    encoded = base64.b64encode(gzip.compress(source_bytes, mtime=0)).decode("ascii")
     return "\n".join(encoded[i : i + 76] for i in range(0, len(encoded), 76))
 
 
