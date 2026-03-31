@@ -2,16 +2,9 @@
 
 `ec2m` is a terminal utility for viewing local machine metrics and native AWS EC2 / CloudWatch metrics on demand.
 
-## Repository layout
-
-- `src/ec2m.py`: editable source code of the utility
-- `install-ec2m.sh`: single-file installer intended for `curl | bash`
-- `scripts/update_installer_payload.py`: rebuilds the embedded installer payload from `src/ec2m.py`
-- `cloudwatch-agent.json`: optional example config for CloudWatch Agent
-
 ## Install
 
-After publishing this repository to GitHub:
+Install from GitHub:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/USER/REPO/main/install-ec2m.sh | bash
@@ -29,32 +22,59 @@ curl -fsSL https://raw.githubusercontent.com/USER/REPO/main/install-ec2m.sh | IN
 curl -fsSL https://raw.githubusercontent.com/USER/REPO/main/install-ec2m.sh | bash -s -- --uninstall
 ```
 
-## Editing the utility
+## What gets installed
 
-The editable source lives in:
+- `ec2m`
+- `ec2-metrics`
+- bundled Python dependencies required by the utility
+
+The installer checks for `python3` and `pip`, installs them if needed, then installs or updates the utility.
+
+## Basic usage
+
+Show the default dashboard:
 
 ```bash
-src/ec2m.py
+ec2m
 ```
 
-After changing it, refresh the installer payload:
+Show available metrics:
 
 ```bash
-python3 scripts/update_installer_payload.py
+ec2m --list
 ```
 
-Or:
+Show live updating view:
 
 ```bash
-make refresh-installer
+ec2m --live
 ```
 
-## Local development flow
+Show compact watch mode:
 
 ```bash
-python3 src/ec2m.py --help
-python3 src/ec2m.py --version
-python3 scripts/update_installer_payload.py
+ec2m --watch
+```
+
+Show only selected metrics:
+
+```bash
+ec2m -m local:cpu -m local:memory -m AWS/EC2:CPUUtilization
+```
+
+Show JSON output:
+
+```bash
+ec2m --json
+```
+
+## Help and diagnostics
+
+```bash
+ec2m --help
+ec2m --version
+ec2m --release-info
+ec2m --doctor
 ```
 
 ## AWS setup
@@ -67,45 +87,21 @@ ec2m --setup-aws
 
 For the default on-demand mode, the EC2 instance only needs CloudWatch read permissions.
 
-## Publish to GitHub
-
-From this directory:
+## Examples
 
 ```bash
-git init
-git add .
-git commit -m "Initial ec2m repository"
-git branch -M main
-git remote add origin git@github.com:USER/REPO.git
-git push -u origin main
+ec2m
+ec2m --live
+ec2m --watch
+ec2m -m local:disk -m AWS/EC2:CPUCreditBalance
+ec2m -m AWS/EC2:NetworkIn:Sum:300 -m AWS/EC2:NetworkOut:Sum:300
 ```
 
-If you prefer HTTPS:
+## Verify install
+
+After installation:
 
 ```bash
-git remote add origin https://github.com/USER/REPO.git
-git push -u origin main
-```
-
-## Recommended release workflow
-
-1. Edit `src/ec2m.py`
-2. Run `python3 scripts/update_installer_payload.py`
-3. Commit the source and updated installer together
-4. Tag the release
-
-Example tagged install URL:
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/USER/REPO/v2026.03.31/install-ec2m.sh | bash
-```
-
-## Smoke test
-
-Run on any target machine:
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/USER/REPO/main/install-ec2m.sh | bash
 ec2m --version
 ec2m --help
 ```

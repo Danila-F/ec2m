@@ -1,12 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Generated installer artifact.
-# Edit src/ec2m.py, then run:
-#   python3 scripts/update_installer_payload.py
-# or:
-#   make refresh-installer
-
 APP_NAME="ec2m"
 DEFAULT_PREFIX="/usr/local"
 USER_PREFIX="${HOME}/.local"
