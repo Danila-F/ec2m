@@ -14,20 +14,34 @@
 
 ## Установка
 
+Установка последней стабильной версии:
+
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Danila-F/ec2m/main/install-ec2m.sh | bash
+curl -fsSL https://github.com/Danila-F/ec2m/releases/latest/download/install-ec2m.sh | bash
 ```
 
 Установка в свой prefix:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Danila-F/ec2m/main/install-ec2m.sh | INSTALL_PREFIX=/opt/ec2m bash
+curl -fsSL https://github.com/Danila-F/ec2m/releases/latest/download/install-ec2m.sh | INSTALL_PREFIX=/opt/ec2m bash
+```
+
+Установка конкретного релиза:
+
+```bash
+curl -fsSL https://github.com/Danila-F/ec2m/releases/download/v2026.03.31/install-ec2m.sh | bash
+```
+
+Установка текущей версии из ветки `main`:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Danila-F/ec2m/main/install-ec2m.sh | bash
 ```
 
 ## Удаление
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Danila-F/ec2m/main/install-ec2m.sh | bash -s -- --uninstall
+curl -fsSL https://github.com/Danila-F/ec2m/releases/latest/download/install-ec2m.sh | bash -s -- --uninstall
 ```
 
 ## Что устанавливается
@@ -132,10 +146,18 @@ ec2m --help
 
 ## Версионирование
 
-Стабильные версии предполагается публиковать git-тегами формата `vYYYY.MM.DD`.
+Стабильные версии публикуются git-тегами формата `vYYYY.MM.DD`.
 
-Пример:
+Ссылка на установщик последней стабильной версии:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Danila-F/ec2m/v2026.03.31/install-ec2m.sh | bash
+curl -fsSL https://github.com/Danila-F/ec2m/releases/latest/download/install-ec2m.sh | bash
 ```
+
+Ссылка на установщик конкретного релиза:
+
+```bash
+curl -fsSL https://github.com/Danila-F/ec2m/releases/download/v2026.03.31/install-ec2m.sh | bash
+```
+
+Релизы для следующих тегов публикуются автоматически через GitHub Actions при пуше тега, подходящего под шаблон `v*`.

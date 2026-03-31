@@ -1,0 +1,85 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Verify source entrypoint
+        run: python3 src/ec2m.py --version
+
+      - name: Verify installer payload is in sync
+        run: |
+          python3 scripts/update_installer_payload.py
+          git diff --exit-code -- install-ec2m.sh
+
+      - name: Smoke test installer
+        run: |
+          INSTALL_PREFIX="$RUNNER_TEMP/ec2m" bash install-ec2m.sh
+          "$RUNNER_TEMP/ec2m/bin/ec2m" --version
+          "$RUNNER_TEMP/ec2m/bin/ec2m" --help >/dev/null
+          INSTALL_PREFIX="$RUNNER_TEMP/ec2m" bash install-ec2m.sh --uninstall
+
+      - name: Prepare release assets
+        run: |
+          sha256sum install-ec2m.sh > SHA256SUMS
+          cat > RELEASE_NOTES.md <<EOF
+          ec2m ${GITHUB_REF_NAME}
+
+          Highlights:
+          - On-demand EC2 metrics viewer for terminal usage
+          - Local Linux metrics plus native AWS/EC2 CloudWatch metrics
+          - CPU credit balance and usage for burstable instances
+          - Live terminal dashboard modes and built-in AWS setup guide
+          - Single-file installer with dependency bootstrap
+
+          Install the latest stable release:
+            curl -fsSL https://github.com/${GITHUB_REPOSITORY}/releases/latest/download/install-ec2m.sh | bash
+
+          Install this exact version:
+            curl -fsSL https://github.com/${GITHUB_REPOSITORY}/releases/download/${GITHUB_REF_NAME}/install-ec2m.sh | bash
+
+          Install the tagged raw file:
+            curl -fsSL https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/${GITHUB_REF_NAME}/install-ec2m.sh | bash
+
+          Verify installer checksum:
+            curl -fsSL https://github.com/${GITHUB_REPOSITORY}/releases/download/${GITHUB_REF_NAME}/SHA256SUMS | sha256sum -c -
+          EOF
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "${GITHUB_REF_NAME}" >/dev/null 2>&1; then
+            gh release upload "${GITHUB_REF_NAME}" install-ec2m.sh SHA256SUMS --clobber
+            gh release edit "${GITHUB_REF_NAME}" --title "ec2m ${GITHUB_REF_NAME}" --notes-file RELEASE_NOTES.md --latest
+          else
+            gh release create "${GITHUB_REF_NAME}" \
+              install-ec2m.sh#install-ec2m.sh \
+              SHA256SUMS#SHA256SUMS \
+              --title "ec2m ${GITHUB_REF_NAME}" \
+              --notes-file RELEASE_NOTES.md \
+              --latest
+          fi

@@ -14,20 +14,34 @@ Source code for the utility is available in `src/ec2m.py`.
 
 ## Install
 
+Install the latest stable release:
+
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Danila-F/ec2m/main/install-ec2m.sh | bash
+curl -fsSL https://github.com/Danila-F/ec2m/releases/latest/download/install-ec2m.sh | bash
 ```
 
 Install to a custom prefix:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Danila-F/ec2m/main/install-ec2m.sh | INSTALL_PREFIX=/opt/ec2m bash
+curl -fsSL https://github.com/Danila-F/ec2m/releases/latest/download/install-ec2m.sh | INSTALL_PREFIX=/opt/ec2m bash
+```
+
+Install a specific release:
+
+```bash
+curl -fsSL https://github.com/Danila-F/ec2m/releases/download/v2026.03.31/install-ec2m.sh | bash
+```
+
+Install the current `main` branch version:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Danila-F/ec2m/main/install-ec2m.sh | bash
 ```
 
 ## Uninstall
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Danila-F/ec2m/main/install-ec2m.sh | bash -s -- --uninstall
+curl -fsSL https://github.com/Danila-F/ec2m/releases/latest/download/install-ec2m.sh | bash -s -- --uninstall
 ```
 
 ## What gets installed
@@ -132,10 +146,18 @@ ec2m --help
 
 ## Versioning
 
-Stable versions are intended to be published as git tags in the form `vYYYY.MM.DD`.
+Stable versions are published as git tags in the form `vYYYY.MM.DD`.
 
-Example:
+The latest stable installer is always available at:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Danila-F/ec2m/v2026.03.31/install-ec2m.sh | bash
+curl -fsSL https://github.com/Danila-F/ec2m/releases/latest/download/install-ec2m.sh | bash
 ```
+
+Each tagged release also has its own fixed installer URL:
+
+```bash
+curl -fsSL https://github.com/Danila-F/ec2m/releases/download/v2026.03.31/install-ec2m.sh | bash
+```
+
+Releases for future tags are published automatically by GitHub Actions when a tag matching `v*` is pushed.
