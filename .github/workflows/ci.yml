@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+    tags: ["v*"]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Verify source entrypoint
+        run: python3 src/ec2m.py --version
+
+      - name: Verify installer payload is in sync
+        run: |
+          python3 scripts/update_installer_payload.py
+          git diff --exit-code -- install-ec2m.sh
+
+      - name: Smoke test installer
+        run: |
+          INSTALL_PREFIX="$RUNNER_TEMP/ec2m" bash install-ec2m.sh
+          "$RUNNER_TEMP/ec2m/bin/ec2m" --version
+          "$RUNNER_TEMP/ec2m/bin/ec2m" --help >/dev/null
+          INSTALL_PREFIX="$RUNNER_TEMP/ec2m" bash install-ec2m.sh --uninstall

@@ -10,6 +10,8 @@
 - не требует постоянно работающего фонового сервиса
 - особенно удобна для burstable EC2-инстансов, где важны CPU credits
 
+Исходный код утилиты находится в `src/ec2m.py`.
+
 ## Установка
 
 ```bash
@@ -126,4 +128,14 @@ ec2m --json
 ```bash
 ec2m --version
 ec2m --help
+```
+
+## Версионирование
+
+Стабильные версии предполагается публиковать git-тегами формата `vYYYY.MM.DD`.
+
+Пример:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Danila-F/ec2m/v2026.03.31/install-ec2m.sh | bash
 ```

@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Installer artifact for ec2m.
+# The editable application source lives in src/ec2m.py.
+
 APP_NAME="ec2m"
 DEFAULT_PREFIX="/usr/local"
 USER_PREFIX="${HOME}/.local"
@@ -208,7 +211,7 @@ import pathlib
 import sys
 
 payload = """
-H4sIAM+2y2kC/819/XPbOLLg7/4reHw1ZWlGkiU5yWZUq7lzHGfGb+PYZzk7986n0qMlyOaGIvVI
+H4sIAK68y2kC/819/XPbOLLg7/4reHw1ZWlGkiU5yWZUq7lzHGfGb+PYZzk7986n0qMlyOaGIvVI
 yo7Xp//9uhvfIChZTnK1rpmIxEej0Wg0Go1G89/+28GqyA9u4vSApffB8rG8y9LDvXixzPIyiPLb
 ZZQXTL7HmXz6R5Gl8jkr5FNxtyrjRL2tbpZ5NmWFzn9Uj2W8UGBXeZLEN52c/deKFeXePM8WwSwq
 GZYJRBn53qKaM5aUEX/8Z5ayPQnpJiuzQw4AH6dZzjrs65QtyzhLCwnrHWQdQ9ZJnmd5KzhOYpaW
@@ -373,7 +376,7 @@ qUF4CNM8pL8/+XD0+ePVZHRxcjwSn//bHkKWSxnpoNnCD62xofi2FsvzCvZ9QQbNHfwce4drZRYT
 Pbc2+fnIvcIt90nAoAQd3MLjpxBcGLNHmILx1GyfX6k6mGVTunELis51yIEZNmiiKjcJVdwi/Jch
 66bHnrWzUZuUoWQgSpfN8tHkrhM4TJzf71lThEx0gLhfZ6q00e90tRKJeGeAl/U1QlvKkThwHNaN
 BcTWyHTfhyYdHGUTaSK8Q2rqixAcxptd0JZJQ04iW05Z5R35zCs4iS33PMwcd+Qon3G/olQQ681W
-i2XR8PoKbHCnMChmuy+0nlGHpsEg2EAzq57g7kHgGwarpE1WqLGV2HZDwD7YDBordvHBYGmBd73p
+i2XR8PoKbHCnMChmuy+0nlGHpsEg2EAzq57g7kHgGqarpE1WqLGV2HZDwD7YDBordvHBYGmBd73p
 u11D/xUxzjE4eYf9aq6t7zVt52c9p9yNkN/GWjOThVHVAzuxLowYoF0TUC1kH5lrbD6bnK3rjkl3
 b9ew0AqgxjcF1Vcpaau1ms9pSY+zzghWofT29Ny6U8vu42xV6A+46k851l+T0WVIV8AW7I4qUWZ8
 OTDF2LIb4DiouGKdN4M7Ue7eIdUO/anEiTRHDf1GJ5TRmyW4/wOMvnvLc1/Ddueqn7i0RJkPRRvA

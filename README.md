@@ -10,6 +10,8 @@ It is designed for on-demand use:
 - no long-running background service required
 - works well for EC2 burstable instances where CPU credit metrics matter
 
+Source code for the utility is available in `src/ec2m.py`.
+
 ## Install
 
 ```bash
@@ -126,4 +128,14 @@ After installation:
 ```bash
 ec2m --version
 ec2m --help
+```
+
+## Versioning
+
+Stable versions are intended to be published as git tags in the form `vYYYY.MM.DD`.
+
+Example:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Danila-F/ec2m/v2026.03.31/install-ec2m.sh | bash
 ```
