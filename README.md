@@ -2,24 +2,28 @@
 
 `ec2m` is a terminal utility for viewing local machine metrics and native AWS EC2 / CloudWatch metrics on demand.
 
+Repository:
+
+`https://github.com/Danila-F/ec2m`
+
 ## Install
 
 Install from GitHub:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/USER/REPO/main/install-ec2m.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Danila-F/ec2m/main/install-ec2m.sh | bash
 ```
 
 Install to a custom prefix:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/USER/REPO/main/install-ec2m.sh | INSTALL_PREFIX=/opt/ec2m bash
+curl -fsSL https://raw.githubusercontent.com/Danila-F/ec2m/main/install-ec2m.sh | INSTALL_PREFIX=/opt/ec2m bash
 ```
 
 ## Uninstall
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/USER/REPO/main/install-ec2m.sh | bash -s -- --uninstall
+curl -fsSL https://raw.githubusercontent.com/Danila-F/ec2m/main/install-ec2m.sh | bash -s -- --uninstall
 ```
 
 ## What gets installed
